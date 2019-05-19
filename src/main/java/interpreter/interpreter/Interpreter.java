@@ -1,6 +1,7 @@
 package interpreter.interpreter;
 
 
+import interpreter.controller.commandFactory.commands.CommandException;
 import interpreter.interpreter.instructionFactory.instructions.Instruction;
 import interpreter.interpreter.instructionFactory.InstructionFactory;
 import interpreter.interpreter.instructionFactory.instructions.InstructionException;
@@ -37,16 +38,16 @@ public class Interpreter {
         return mainFunction.getCurrentPos();
     }
 
-    public StringPos executeInto() throws InstructionException, InterpreterException {
+    public StringPos executeInto() throws InstructionException, CommandException {
         if (programTerminated()) {
-            throw new InterpreterException( "The program has finished working" );
+            throw new CommandException( "The program has finished working" );
         }
         return mainFunction.executeInto( logger, 1 );
     }
 
-    public StringPos executeOver() throws InstructionException, InterpreterException {
+    public StringPos executeOver() throws InstructionException, CommandException {
         if (programTerminated()) {
-            throw new InterpreterException( "The program has finished working" );
+            throw new CommandException( "The program has finished working" );
         }
         return mainFunction.executeOver( logger, 1 );
     }

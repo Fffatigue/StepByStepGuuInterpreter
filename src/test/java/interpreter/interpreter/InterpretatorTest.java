@@ -1,5 +1,6 @@
 package interpreter.interpreter;
 
+import interpreter.controller.commandFactory.commands.CommandException;
 import interpreter.interpreter.instructionFactory.instructions.InstructionException;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,23 +12,25 @@ import java.io.StringReader;
 import static org.junit.Assert.assertEquals;
 
 public class InterpretatorTest {
-    private static final Reader r = new StringReader( "sub main\n" +
-            "    set a 1\n" +
-            "    call foo\n" +
-            "    print a\n" +
-            "\n" +
-            "sub foo\n" +
-            "    set a 2" );
+    private Reader r;
+
 
     private Logger logger;
 
     @Before
     public void initLogger() {
+        r = new StringReader( "sub main \n" +
+                "    set a 1\n" +
+                "    call foo\n" +
+                "    print a\n" +
+                "\n" +
+                "sub foo\n" +
+                "    set a 2" );
         logger = new Logger();
     }
 
     @Test
-    public void testInterpreterStepOver() throws InterpreterException, IOException, ClassNotFoundException, InstructionException {
+    public void testInterpreterStepOver() throws InterpreterException, IOException, ClassNotFoundException, InstructionException, CommandException {
         Interpreter interpreter = new Interpreter( logger, r );
         interpreter.executeInto();
         interpreter.executeInto();
@@ -38,7 +41,7 @@ public class InterpretatorTest {
     }
 
     @Test
-    public void testInterpreterStepInto() throws InterpreterException, IOException, ClassNotFoundException, InstructionException {
+    public void testInterpreterStepInto() throws InterpreterException, IOException, ClassNotFoundException, InstructionException, CommandException {
         Interpreter interpreter = new Interpreter( logger, r );
         interpreter.executeInto();
         interpreter.executeInto();
@@ -48,7 +51,7 @@ public class InterpretatorTest {
     }
 
     @Test
-    public void testInterpreterGetPos() throws InterpreterException, IOException, ClassNotFoundException, InstructionException {
+    public void testInterpreterGetPos() throws InterpreterException, IOException, ClassNotFoundException, InstructionException, CommandException {
         Interpreter interpreter = new Interpreter( logger, r );
         int actual = interpreter.getCurrentPos();
         int expected = 0;

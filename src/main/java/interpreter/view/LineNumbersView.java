@@ -12,7 +12,6 @@ import javax.swing.text.Utilities;
 import java.awt.*;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
-import java.awt.geom.Rectangle2D;
 
 public class LineNumbersView extends JComponent implements DocumentListener, CaretListener, ComponentListener {
     private static final int MARGIN_WIDTH_PX = 28;
@@ -40,8 +39,8 @@ public class LineNumbersView extends JComponent implements DocumentListener, Car
         super.paintComponent( g );
 
         Rectangle clip = g.getClipBounds();
-        int startOffset = editor.viewToModel2D( new Point( 0, clip.y ) );
-        int endOffset = editor.viewToModel2D( new Point( 0, clip.y + clip.height ) );
+        int startOffset = editor.viewToModel( new Point( 0, clip.y ) );
+        int endOffset = editor.viewToModel( new Point( 0, clip.y + clip.height ) );
 
         while (startOffset <= endOffset) {
             try {
@@ -86,9 +85,10 @@ public class LineNumbersView extends JComponent implements DocumentListener, Car
         FontMetrics fontMetrics = editor.getFontMetrics( editor.getFont() );
         int descent = fontMetrics.getDescent();
 
-        Rectangle2D r = editor.modelToView2D( offset );
+        Rectangle r = editor.modelToView( offset );
+        int y = r.y + r.height - descent;
 
-        return (int)(r.getY() + r.getHeight()) - descent;
+        return y;
     }
 
     /**
