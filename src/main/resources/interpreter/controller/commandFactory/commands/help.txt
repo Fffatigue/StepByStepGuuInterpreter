@@ -1,0 +1,4 @@
+i - step into, the debugger goes inside call <subname>.
+o - step over, the debugger does not go inside the call.
+trace - print stack trace execution with line numbers starting with main.
+var - print the values of all declared variables.
