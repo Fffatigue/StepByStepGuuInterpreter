@@ -37,7 +37,7 @@ public class Main extends MainFrame {
 
             JToggleButton runButton = addToolBarToggleButton( "Tools/Run" );
 
-            runButtonWrapper = new RunButtonWrapper( false,runButton,interpreterPanel );
+            runButtonWrapper = new RunButtonWrapper( false, runButton, interpreterPanel );
 
             interpreterPanel.setRunButtonWrapper( runButtonWrapper );
 
@@ -63,8 +63,8 @@ public class Main extends MainFrame {
     }
 
     public void onNew() {
-        if(run){
-            JOptionPane.showMessageDialog( this,"The program is running, to apply this option you need to stop the program." );
+        if (run) {
+            JOptionPane.showMessageDialog( this, "The program is running, to apply this option you need to stop the program." );
             return;
         }
         interpreterPanel.clear();
@@ -78,13 +78,13 @@ public class Main extends MainFrame {
         try {
             interpreterPanel.saveProgram( f );
         } catch (IOException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog( this, "Something wrong happens : " + e.getMessage() );
         }
     }
 
     public void onOpen() {
-        if(run){
-            JOptionPane.showMessageDialog( this,"The program is running, to apply this option you need to stop the program." );
+        if (run) {
+            JOptionPane.showMessageDialog( this, "The program is running, to apply this option you need to stop the program." );
             return;
         }
         File f = getOpenFileName( "guu", "guu files" );
@@ -94,7 +94,7 @@ public class Main extends MainFrame {
         try {
             interpreterPanel.loadProgram( f );
         } catch (IOException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog( this, "Something wrong happens : " + e.getMessage() );
         }
     }
 
